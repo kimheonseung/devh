@@ -1,0 +1,112 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    /* for querydsl */
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+}
+
+group = 'com.devh.common'
+version = 'v1'
+sourceCompatibility = '11'
+
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation ('org.springframework.boot:spring-boot-starter-data-elasticsearch') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    implementation ('org.springframework.boot:spring-boot-starter-data-jpa') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    implementation ('org.springframework.boot:spring-boot-starter-security') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    compileOnly 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    testImplementation ('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    testImplementation 'org.springframework.security:spring-security-test'
+    /* Jsoup */
+    implementation group: 'org.jsoup', name:'jsoup', version: '1.12.1'
+    /* Json */
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    /* QueryDSL */
+    implementation 'com.querydsl:querydsl-jpa'
+    /* Json Web Token */
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    /* Json Web Token signWith noClassDefFoundError: javax/xml/bind/DatatypeConverter Java 11 Issue */
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.1'
+    /* Log4j2 */
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-web:2.17.1'
+    implementation ('org.apache.logging.log4j:log4j-slf4j-impl:2.17.1')
+    /* Embedded Tomcat Log */
+    implementation ('org.slf4j:jul-to-slf4j:1.7.32') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+    /* Swagger */
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'commons-validator:commons-validator:1.7'
+
+    implementation 'co.elastic.clients:elasticsearch-java:7.16.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+/**
+ * Querydsl을 이용하면 코드 내부에서 상황에 맞는 쿼리를 생성할 수 있다.
+ * - 작성된 엔티티 클래스를 Q도메인 클래스로 변환하는 설정이 필요
+ * - plugins 항목에 querydsl 부분 추가
+ * - dependencies 항목에 필요 라이브러리 추가
+ * - gradle에서 사용할 추가적 task 추가
+ * -> compileQuerydsl task가 생기며 실행 시 Q클래스가 빌드된다.
+ */
+
+/**
+ * for querydsl
+ */
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir querydslDir
+        }
+    }
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}

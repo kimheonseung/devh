@@ -1,0 +1,57 @@
+/* Sidebar */
+.t-sidebar { background-color: rgb(20, 20, 20); }
+.t-sidebar-logo { background-color: rgb(33, 33, 33); color: rgb(136, 136, 136); }
+.t-sidebar-menu { background-color: rgb(30, 30, 30); color: rgb(136, 136, 136); }
+.t-sidebar-submenu, .t-login-container { background-color: rgb(45, 45, 45); color: rgb(136, 136, 136); }
+.t-sidebar-submenu:hover, .t-sidebar-menu:hover { background-color: darkslateblue; }
+.t-menu-selected { background-color: darkslateblue; }
+/* Header */
+.t-navbar { background-color: rgb(60, 60, 60); box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5); }
+/* Content */
+.t-content, #wrapper { background-color: rgb(40, 40, 40); }
+
+/* text */
+.t-text { color: rgb(136, 136, 136); }
+
+/* login */
+#username, #password { background-color: rgb(95, 96, 97); color: rgb(255, 255, 255); }
+
+/* bootstrap custom - override */
+.form-control:focus { box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 0.5); }
+
+/* gridster */
+.t-chart-wrap { background-color: rgb(30, 30, 45); }
+
+/* map monitoring cytoscape, slickgrid table */
+#cy { background-color: rgb(30, 30, 45); }
+
+.t-grid { background-color: rgb(40, 40, 40); }
+
+/* toast grid */
+.tui-grid-body-area { background-color: rgb(20, 20, 20) !important; }
+
+/* slickgrid */
+/* header column style */
+.slick-header-column.ui-state-default, .slick-group-header-column.ui-state-default {
+  background-color: rgb(30, 30, 30);
+  border-right: 1px solid lightslategrey;
+  border-left: 0px !important;
+  border-top: 0px !important;
+  border-bottom: 0px !important;
+}
+.slick-cell, .slick-headerrow-column , .slick-footerrow-column {
+  border: 1px solid transparent;
+  border-right: 1px solid lightslategrey;
+  border-bottom-color: lightslategrey;
+  background-color: rgb(65, 65, 65);
+}
+.slick-header-column.ui-state-default:hover, .slick-group-header-column.ui-state-default:hover, .slick-cell:hover, .slick-headerrow-column:hover , .slick-footerrow-column:hover {
+  background-color: darkslateblue;
+}
+.slick-cell, .slick-headerrow-column{
+  border-bottom-color: lightslategrey;
+}
+.slick-footerrow-column {
+  border-top-color: lightslategrey;
+}
+.even .slick-cell { background-color: rgb(85, 85, 85); }

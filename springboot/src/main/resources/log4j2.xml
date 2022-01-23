@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configuration>
+<Configuration status="info">
+	<Properties>
+		<Property name="layoutPattern">[%d{HH:mm:ss}] [%p] [%C{1}(%M:%L)] :%m%n
+		</Property>
+	</Properties>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${layoutPattern}" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="info" additivity="false">
+			<AppenderRef ref="console" />
+		</Root>
+
+<!--		<logger name="jdbc.sqlonly" level="OFF"/>-->
+<!--		<logger name="jdbc.sqltiming" level="INFO"/>-->
+<!--		<logger name="jdbc.audit" level="OFF"/>-->
+<!--		<logger name="jdbc.resultset" level="OFF"/>-->
+<!--		<logger name="jdbc.resultsettable" level="OFF"/>-->
+<!--		<logger name="jdbc.connection" level="OFF"/>-->
+	</Loggers>
+</Configuration>
