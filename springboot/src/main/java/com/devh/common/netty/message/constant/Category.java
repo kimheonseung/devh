@@ -14,5 +14,23 @@ package com.devh.common.netty.message.constant;
  * </pre>
  */
 public enum Category {
-	TEST_CATEGORY;
+	/* SHUTDOWN */
+	SHUTDOWN,
+	
+	/* EXCEPTION */
+	QUERY_EXCEPTION,
+	
+	/* INTEGRITY */
+	INTEGRITY_CHECK,
+	INTEGRITY_DEBUG,
+	INTEGRITY_SUCCESS,
+	INTEGRITY_FAIL,
+	
+	/* POLICY */
+	POLICY,
+	/* EQUIP */
+	EQUIP,
+	/* LOG */
+	LOG
+	;
 }

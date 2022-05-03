@@ -1,4 +1,4 @@
-package com.devh.common.netty;
+package com.devh.common.netty.channel;
 
 import io.netty.channel.Channel;
 import lombok.Getter;

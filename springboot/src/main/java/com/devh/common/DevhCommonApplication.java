@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DevhCommonApplication {
 
     public static void main(String[] args) {
+    	/* Class loader issue */
+    	System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(DevhCommonApplication.class, args);
     }
 

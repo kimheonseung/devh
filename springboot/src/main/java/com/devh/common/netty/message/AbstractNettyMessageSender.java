@@ -1,7 +1,9 @@
 package com.devh.common.netty.message;
 
-import com.devh.common.datastructure.CircularQueue;
+import java.util.concurrent.BlockingQueue;
+
 import com.devh.common.netty.interfaces.INettyMessageSendHandler;
+
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 
@@ -20,17 +22,43 @@ import io.netty.channel.ChannelFuture;
  * </pre>
  */
 public abstract class AbstractNettyMessageSender implements INettyMessageSendHandler {
-	protected CircularQueue mCircularQueue;
+	protected final BlockingQueue<NettyRequest> mRequestQueue;
+	protected final BlockingQueue<NettyResponse> mResponseQueue;
+	
 	protected Channel mChannel = null;
 	protected abstract void setChannel(Channel ch);
-	protected abstract void send(Object message);
-	protected abstract void send(Channel ch, Object message);
+	protected abstract boolean send(Object message);
+	protected abstract boolean send(Channel ch, Object message);
 	
-	protected void enqueue(Object message) {
-		this.mCircularQueue.enqueue(message);
+	public AbstractNettyMessageSender(BlockingQueue<NettyRequest> requestQueue, BlockingQueue<NettyResponse> responseQueue) {
+		this.mRequestQueue = requestQueue;
+		this.mResponseQueue = responseQueue;
 	}
-	protected Object dequeue() {
-		return this.mCircularQueue.dequeue();
+	
+	protected void putRequest(NettyRequest nettyRequest) {
+		try {
+			this.mRequestQueue.put(nettyRequest);
+		} catch (InterruptedException e) {}
+	}
+	protected void putResponse(NettyResponse nettyResponse) {
+		try {
+			this.mResponseQueue.put(nettyResponse);
+		} catch (InterruptedException e) {}
+	}
+	
+	protected NettyRequest takeRequest() {
+		NettyRequest req = null;
+		try {
+			req = this.mRequestQueue.take();
+		} catch (InterruptedException e) {}
+		return req;
+	}
+	protected NettyResponse takeResponse() {
+		NettyResponse res = null;
+		try {
+			res = this.mResponseQueue.take();
+		} catch (InterruptedException e) {}
+		return res;
 	}
 	
 	protected boolean isChannelActive() {

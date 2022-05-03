@@ -1,7 +1,7 @@
 package com.devh.common.netty.interfaces;
 
-import com.devh.common.netty.message.vo.NettyRequestVO;
-import com.devh.common.netty.message.vo.NettyResponseVO;
+import com.devh.common.netty.message.NettyRequest;
+import com.devh.common.netty.message.NettyResponse;
 
 import io.netty.channel.ChannelHandlerContext;
 
@@ -20,8 +20,6 @@ import io.netty.channel.ChannelHandlerContext;
  */
 public interface INettyMessageReceiveHandler {
 	void handleMessageReceive(ChannelHandlerContext ctx, Object message);
-	void handleMessageReceive(Object message);
-	void distribute(Object message);
-	void handleRequest(NettyRequestVO message);
-	void handleResponse(NettyResponseVO message);
+	void handleRequest(ChannelHandlerContext ctx, NettyRequest nettyRequest);
+	void handleResponse(ChannelHandlerContext ctx, NettyResponse nettyResponse);
 }

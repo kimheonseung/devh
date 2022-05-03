@@ -1,37 +1,35 @@
-package com.devh.common.netty.test.client;
+package com.devh.common.netty.client;
+
+import org.springframework.stereotype.Component;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelHandler.Sharable;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/*
- * <pre>
- * Description : 
- *     Netty Inbound 핸들러
- * ===============================
- * Memberfields :
- *     
- * ===============================
- * 
- * Author : HeonSeung Kim
- * Date   : 2021. 11. 3.
- * </pre>
- */
 @Slf4j
-public class SampleClientInboundHandler extends ChannelInboundHandlerAdapter {
+@Sharable
+@Component
+@RequiredArgsConstructor
+public class NettyClientInboundHandler extends ChannelInboundHandlerAdapter {
+	
+	private final NettyClientMessageReceiver nettyClientMessageReceiver;
 	
 	@Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//		log.info(String.format("Channel Avtice - %s", ctx.channel().remoteAddress()));
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+//    	log.info(String.format("Channel Inactive - %s", ctx.channel().remoteAddress()));
     }
 
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-    	SampleClientMessageReceiver.getInstance().handleMessageReceive(msg);
+    	nettyClientMessageReceiver.handleMessageReceive(ctx, msg);
     }
 
     @Override

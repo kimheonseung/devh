@@ -15,6 +15,18 @@ package com.devh.common.netty.message.constant;
  */
 public enum Key {
 	
-	TEST_KEY;
+	/* EXCEPTION */
+	EXCEPTION,
+	
+	/* SHUTDOWN */
+	SHUTDOWN_MESSAGE,
+	
+	/* Policy */
+	POLICY_VO,
+	
+	/* Integrity */
+	INTEGRITY_VO_SET,
+	INTEGRITY_DEBUG,
+	INTEGRITY_RESULT;
 	
 }
